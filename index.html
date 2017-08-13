@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>哔哩哔哩</title>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<style>
+			* {box-sizing: border-box;margin: 0;padding: 0;}
+			
+			ul{
+				list-style: none;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			div.header {
+				background: url(img/顶端.png) -280px 0;
+				width: 1366px;
+				height: 170px;
+			}
+			
+			div.nav {
+				position: relative;
+				z-index: 1;   /* 如果不使设置堆叠顺序，那么这个div就会被 div.search覆盖而无法进行操作*/
+			}
+			
+			div.nav .nav-pic{
+				height: 42px;
+				background: url(img/顶端.png) -280px 0;
+				-webkit-filter: blur(5px);
+				filter: blur(5px);
+			}
+			
+			div.nav .nav-con {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 42px;
+				background: rgba(0,0,0,0.5);
+			}
+			
+			div.nav-con div {
+				width: 70%;
+				height: 42px;
+				margin: 0 auto;
+			}
+			
+			div.nav-con div ul {
+				height: 42px;
+				float: left;
+				line-height: 42px;
+				color: white;
+				font-size: 13px;
+			}
+			
+			div.nav-con div ul.m2 {
+				float: right;
+			}
+			
+			div.nav-con div ul li {
+				display: block;
+				height: 42px;
+				float: left;
+				padding: 0 10px;
+				transition: 0.5s;
+				cursor: pointer;
+			}
+			
+			div.nav-con div ul li:hover {
+				background: rgba(255,255,255,0.3);
+			}
+			
+			div.nav-con div ul .img1:hover{
+				background: rgba(0,0,0,0);
+			}
+			
+			div.nav-con div ul .img1 {
+				position: relative;
+			}
+			
+			.m2 li img{
+				position: absolute;
+				left: -32px;
+				border-radius: 50%;
+				padding: 3px;
+			}
+			
+			.m2 li:first-child {
+				padding: 0;
+				margin: 0 10px;
+			}
+			
+			
+			
+			.search {
+				position: relative;
+				width: 70%;
+				height: 100%;
+				margin: 0 auto;
+				margin-top: -42px;
+			}
+			
+			.search .a1 {
+				margin-top: 50px;
+				float: left;
+			}
+			
+			.search div {
+				float: right;
+				margin-top: 112px;
+			}
+			
+			.search div a {
+				background: white;
+				display: block;
+				float: left;
+				color: #f25d8e;
+				border: 1px solid #f2f2f2;
+				padding: 7px 10px;
+				border-radius: 3px;
+				font-size: 13px;
+			}
+			
+			.search div input {
+				padding: 8px 90px 8px 7px;
+				border: 1px solid #F2F2F2;
+				border-radius: 3px;
+				margin-left: 3px;
+			}
+			
+			button {
+				position: absolute;
+				right: 0;
+				bottom: 24px;
+				border: none;
+				background: url(img/搜索.png);
+				width: 33px;
+				height: 33px;
+			}
+			
+			.cen {
+				width: 1366px;
+			}
+			.cont {
+				width: 70%;
+				margin: 0 auto;
+			}
+			
+			.cont:after {    /*解决浮动带来的空间坍塌造成的高度为0 */
+				content: " ";
+				display: block;
+				height: 0;
+				clear: both;
+			}
+			
+			.con_1 ul.m3 .m33{
+				position: relative;
+				display: block;
+				cursor: pointer;
+				float: left;
+				text-align: center;
+				padding: 15px 10px;
+				font-size: 14px;
+			}
+			
+			.con_1 ul.m3 li .s1{
+				display: block;
+				background: rgba(240,93,142,0.4);
+				font-size: 12px;
+				margin-bottom: 3px;
+				border-radius: 2px;
+				color: white;
+			}
+			
+			.con_1 .gc {
+				position: relative;
+				float: left;
+				height: 69px;
+				line-height: 69px;
+				padding: 0 5px;
+				font-size: 17px;
+				cursor: pointer;
+			}
+			
+			.con_1 .gc .gc-con,.con_1 .m3 div{
+				position: absolute;
+				float: left;
+				display: none;
+				width: 420px;
+				background: white;
+				z-index: 1;
+			}
+			
+			.con_1 .m3 div{
+				width: auto;
+			}
+			
+			.gc:hover .gc-con{
+				display: block;
+			}
+			
+			
+			.con_1 .gc .gc-con ul{
+				/*border-right: 1px solid #ADADAD;*/
+				float: left;
+				width: 120px;
+			}
+			
+			.con_1 .m3 div ul {
+				float: left;
+				width: 130px;
+			}
+			.con_1 .gc .gc-con li, .con_1 .m3 div li{
+				display: block;
+				height: 27px;
+				padding: 5px 10px;
+				margin: 3px 0;
+				font-size: 12px;
+				cursor: pointer;
+				transition: 0.5s;
+			}
+			
+			.con_1 .gc .gc-con li:hover,
+			.con_1 .m3 div li:hover {
+				padding-left: 15px;
+				background: rgba(123,104,238,0.2);
+			}
+			
+			.con_1 .gc .gc-con li img{
+				display: block;
+				float: left;
+				width: 19px;
+				margin: 0 6px;
+			}
+			
+			.con_1 .m3 div li img {
+				display: block;
+				float: left;
+				width: 16px;
+			}
+			
+			.con_1 .m3 div li span{
+				float: left;
+			}
+			
+			.con_1 .gc .gc-con li span{
+				display: block;
+				margin-top: -24px;
+			}
+			
+
+			.gc-con_2{
+				float: left;
+				margin-bottom:15px;
+				width: 280px;
+				height: 193px;
+				padding: 0 20px;
+				border-left: 1px solid #adadad;
+			}
+			
+			.gc-con_2 a {
+				display: block;
+				height: 84px;
+			}
+			
+			.gc-con_2 a:first-child{
+				margin: 5px 0 20px 0;
+			}
+			
+			.m4 li span{
+				position: relative;
+				color:black;
+			}
+			
+			.zb .gc-con .m4 li .after, .con_1 .m3 div li .after {
+				position: absolute;
+				right: -30px;
+				top:0;
+				width:16px;
+				opacity: 0;
+				transition: 0.5s;
+			}
+			
+			.zb .gc-con .m4 li .after {
+				top: 26px;	
+			}
+			
+			.zb .gc-con_2 {
+				height: 260px;
+			}
+			
+			.zb .gc-con_2 a {
+				height: 100px;
+			}
+			
+			.br{
+				width: 94px;
+			}
+			
+			.br a{
+				color: black;
+			}
+			
+			.slide {
+				position: relative;
+				width: 440px;
+				height: 220px;
+				overflow: hidden;
+				border-radius: 10px;
+				float: left;
+			}
+			
+			.slide ul{
+				position: absolute;
+				bottom: 0;
+				right: 23px;
+				height: 26px;
+			}
+			
+			.slide ul li{
+				float: left;
+				width: 11px;
+				height: 11px;
+				background: white;
+				border-radius: 50%;
+				margin: 0 5px;
+				margin-top: 13px;
+				transform: translateY(-50%);
+			}
+			
+			.slide ul li:first-child{
+				background: #836fff;
+				width: 14px;
+				height: 14px;
+				border: 2px solid white;
+			}
+			
+			.slide img{
+				float: left;
+			}
+			
+			.s-c {
+				transition: 0.5s;
+				width: 2200px;
+				position: absolute;
+				left: 0;
+				top: 0;
+			}
+			
+			.right{
+				float: left;
+			}
+			
+			.right a{
+				height: 100px;
+				position: relative;
+				display: block;
+				margin: 0 0 20px 12px;
+				float: left;
+				overflow: hidden;
+			}
+			
+			.right div {
+				position: absolute;
+				background: rgba(0,0,0,0.3);
+				font-size: 12px;
+				height: 100px;
+				width: 159px;
+				top: 76px;
+			}
+			
+			.title {
+				color: white;
+				padding: 3px 0;
+				line-height: 20px;
+				height: 63px;
+				overflow: hidden;
+			}
+			
+			.auther, .pl{
+				color: #8b8b83;
+				padding-left: 5px;
+			}
+			
+			.right a:hover .rc{
+				display: block;
+				background: rgba(0,0,0,0.6);
+				padding-left: 5px;
+				top: 0;
+			}
+			
+			.month {
+				background: #1ABC9C;
+				width: 100%;
+				padding:5px;
+			}
+			
+			.month li{
+				color: white;
+				font-size: 17px;
+				text-transform: uppercase;
+				letter-spacing: 3px;
+				text-align: center;
+			}
+			
+			.pre {
+				float: left;
+				padding-top: 10px;
+			}
+			
+			.next {
+				float: right;
+				padding-top: 10px;
+			}
+			
+			.week {
+				background: #DDDDDD;
+				padding: 5px 0;
+			}
+			
+			.week li{
+				display:inline-block;
+				width:14.2%;
+				text-align:center;
+				color:#666666;
+				margin:0;
+			}
+			
+			.day{
+				background: #eeeeee;
+				padding: 5px 0;
+			}
+			
+			.day li{
+				display:inline-block;
+				width:14.2%;
+				text-align:center;
+				font-size:12px;
+				color:#777;
+				margin-bottom:5px;
+			}
+			
+			.index {
+				position: fixed;
+				width: 50px;
+				top: 239px;
+				right: 125px;
+				transition: 0.5s;
+			}
+			
+			.index ul{
+				border: 0.5px solid #ADADAD;
+			}
+			
+			.index li{
+				display: block;
+				background: #f2f2f2;
+				border-bottom: 0.5px solid #ADADAD;
+				padding: 5px 0;
+				text-align: center;
+				font-size: 12px;
+				cursor: pointer;
+			}
+			
+			.index li a{
+				color: black;
+			}
+			
+			.con_4,.con_5,.con_6,.con_7 {
+				width: 956.19px;
+				height: 200px;
+				margin: 20px 0;
+				border: 0.5px solid;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<div class="nav">
+				<div class="nav-pic"></div>
+				<div class="nav-con">
+					<div>
+					<ul class="m1">
+						<li>主站</li>
+						<li>画友</li>
+						<li>游戏中心</li>
+						<li>直播</li>
+						<li>周边</li>
+						<li>移动端</li>
+						<li>BML</li>
+						<li>萌战</li>
+					</ul>
+					
+					<ul class="m2">
+						<li class="img1"><img src="img/头像.jpg" width="42px"></li>
+						<li>消息</li>
+						<li>动态</li>
+						<li>稍后观看</li>
+						<li>收藏夹</li>
+						<li>历史</li>
+						<li>投稿</li>
+					</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="search">
+				<a class="a1" href="https://www.bilibili.com" target="_blank"><img src="img/哔哩哔哩.png"></a>
+				<div>
+					<a href="https://www.bilibili.com/ranking" target="_blank">排行榜</a>
+					<input type="text" placeholder="来传火啊，少年!" />
+					<button type="submit"></button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="cen">	
+			<div class="cont">
+				<div class="con_1" style="float: left;">
+					<ul class="m3" style="float: left;">
+						<li class="m33">
+							<a href="https://www.bilibili.com/index.html"><img src="img/首页.png" width="16px"><br><span style="color: black;">首页</span></a>
+							<div></div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/douga.html"><span class="s1">999</span><span style="color: black;">动画</span></a>
+							<div>
+								<ul class="m4">
+									<li><a href="https://www.bilibili.com/video/douga-mad-1.html"><img src="img/右箭头.png"><span>MAD·AMV<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/douga-mmd-1.html"><img src="img/右箭头.png"><span>MMD·3D<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/douga-voice-1.html"><img src="img/右箭头.png"><span>短片·手书·配音<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/douga-else-1.html"><img src="img/右箭头.png"><span>综合<img class="after" src="img/左箭头.png"></span></a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="m33">
+							<a href="https://bangumi.bilibili.com/22/"><span class="s1">999</span><span style="color: black;">番剧</span></a>
+							<div>
+								<ul class="m4">
+									<li><a href="https://www.bilibili.com/video/bangumi-two-1.html"><img src="img/右箭头.png"><span>连载动画<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/part-twoelement-1.html"><img src="img/右箭头.png"><span>完结动画<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/douga-else-information-1.html"><img src="img/右箭头.png"><span>资讯<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/bagumi_offical_1.html"><img src="img/右箭头.png"><span>官方延伸<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://bangumi.bilibili.com/anime/timeline"><img src="img/右箭头.png"><span>新番时间表<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://bangumi.bilibili.com/anime/timeline"><img src="img/右箭头.png"><span>番剧索引<img class="after" src="img/左箭头.png"></span></a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="m33">
+							<a href="https://bangumi.bilibili.com/guochuang/"><span class="s1">999</span><span style="color: black;">国创</span></a>
+							<div>
+								<ul class="m4">
+									<li><a href="https://www.bilibili.com/video/bangumi_chinese_1.html"><img src="img/右箭头.png"><span>国产动画<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/guochuang-fanvid-1.html"><img src="img/右箭头.png"><span>国产原创相关<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/glove-puppetry-1.html"><img src="img/右箭头.png"><span>布袋戏<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/guochuang-offical-1.html"><img src="img/右箭头.png"><span>资讯<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://bangumi.bilibili.com/guochuang/timeline"><img src="img/右箭头.png"><span>新番时间表<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://bangumi.bilibili.com/guochuang/index"><img src="img/右箭头.png"><span>国产动画索引<img class="after" src="img/左箭头.png"></span></a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/music.html"><span class="s1">999</span><span style="color: black;">音乐</span></a>
+							<div>
+								<ul class="m4" style="width: 150px;">
+									<li><a href="https://www.bilibili.com/video/music-original-1.html"><img src="img/右箭头.png"><span>原创音乐<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/music-Cover-1.html"><img src="img/右箭头.png"><span>翻唱<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/music-vocaloid-1.html"><img src="img/右箭头.png"><span>VOCALOID·UTAU<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/music-perform-1.html"><img src="img/右箭头.png"><span>演奏<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/music-coordinate-1.html"><img src="img/右箭头.png"><span>三次元音乐<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/music-oped-1.html"><img src="img/右箭头.png"><span>OP/ED/OST<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/music-collection-1.html"><img src="img/右箭头.png"><span>音乐选集<img class="after" src="img/左箭头.png"></span></a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/dance.html"><span class="s1">999</span><span style="color: black;">舞蹈</span></a>
+							<div>
+								<ul class="m4">
+									<li><a href="https://www.bilibili.com/video/dance-1.html"><img src="img/右箭头.png"><span>宅舞<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/three-dimension-dance-1.html"><img src="img/右箭头.png"><span>三次元舞蹈<img class="after" src="img/左箭头.png"></span></a></li>
+									<li><a href="https://www.bilibili.com/video/dance-demo-1.html"><img src="img/右箭头.png"><span>舞蹈教程<img class="after" src="img/左箭头.png"></span></a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/game.html"><span class="s1">999</span><span style="color: black;">游戏</span></a>
+						    <div>
+						    	<ul class="m4">
+						    		<li><a href="https://www.bilibili.com/video/videogame-1.html"><img src="img/右箭头.png"><span>单机游戏<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/esports-1.html"><img src="img/右箭头.png"><span>电子竞技<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/mobilegame-1.html"><img src="img/右箭头.png"><span>手机游戏<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/onlinegame-1.html"><img src="img/右箭头.png"><span>网络游戏<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/boardgame-1.html"><img src="img/右箭头.png"><span>桌游棋牌<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/gmv-1.html"><img src="img/右箭头.png"><span>GMV<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/music-game-1.html"><img src="img/右箭头.png"><span>音游<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/game-mugen-1.html"><img src="img/右箭头.png"><span>Mugen<img class="after" src="img/左箭头.png"></span></a></li>
+						    	</ul>
+						    </div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/technology.html"><span class="s1">999</span><span style="color: black;">科技</span></a>
+						    <div>
+						    	<ul class="m4">
+						    		<li><a href="https://www.bilibili.com/video/tech-popular-science-1.html"><img src="img/右箭头.png"><span>记录片<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/tech-fun-1.html"><img src="img/右箭头.png"><span>趣味科普人文<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/tech-wild-1.html"><img src="img/右箭头.png"><span>野生技术协会<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/speech-course-1.html"><img src="img/右箭头.png"><span>演讲·公开课<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/tech-future-military-1.html"><img src="img/右箭头.png"><span>星海<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/tech-future-digital-1.html"><img src="img/右箭头.png"><span>数码<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/tech-future-other-1.html"><img src="img/右箭头.png"><span>机械<img class="after" src="img/左箭头.png"></span></a></li>
+						    	</ul>
+						    </div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/life.html"><span class="s1">999</span><span style="color: black;">生活</span></a>
+						    <div>
+						    	<ul class="m4">
+						    		<li><a href="https://www.bilibili.com/video/ent_funny_1.html"><img src="img/右箭头.png"><span>搞笑<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/ent-life-1.html"><img src="img/右箭头.png"><span>日常<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/ent-food-1.html"><img src="img/右箭头.png"><span>美食圈<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/ent-animal-1.html"><img src="img/右箭头.png"><span>动物圈<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/ent-handmake-1.html"><img src="img/右箭头.png"><span>手工<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/ent-painting-1.html"><img src="img/右箭头.png"><span>绘画<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/ent-sports-1.html"><img src="img/右箭头.png"><span>运动<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/others-1.html"><img src="img/右箭头.png"><span>其它<img class="after" src="img/左箭头.png"></span></a></li>
+						    	</ul>
+						    </div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/kichiku.html"><span class="s1">999</span><span style="color: black;">鬼畜</span></a>
+						    <div>
+						    	<ul class="m4">
+						    		<li><a href="https://www.bilibili.com/video/ent-Kichiku-1.html"><img src="img/右箭头.png"><span>鬼畜调教<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/douga-kichiku-1.html"><img src="img/右箭头.png"><span>音MAD<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/kichiku-manual_vocaloid-1.html"><img src="img/右箭头.png"><span>人力VOCALOID<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/kichiku-course-1.html"><img src="img/右箭头.png"><span>教程演示<img class="after" src="img/左箭头.png"></span></a></li>
+						    	</ul>
+						    </div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/fashion.html"><span class="s1">999</span><span style="color: black;">时尚</span></a>
+						    <div>
+						    	<ul class="m4">
+						    		<li><a href="https://www.bilibili.com/video/fashion-makeup-fitness-1.html"><img src="img/右箭头.png"><span>美妆<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/fashion-clothing-1.html"><img src="img/右箭头.png"><span>服饰<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/fashion-body-1.html"><img src="img/右箭头.png"><span>健身<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/fashion-info-1.html"><img src="img/右箭头.png"><span>资讯<img class="after" src="img/左箭头.png"></span></a></li>
+						    	</ul>
+						    </div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/ad-ad-1.html"><span class="s1">999</span><span style="color: black;">广告</span></a>
+						   <div></div>
+						</li>
+						<li class="m33">
+							<a href="https://www.bilibili.com/video/ent.html"><span class="s1">999</span><span style="color: black;">娱乐</span></a>
+						    <div>
+						    	<ul class="m4">
+						    		<li><a href="https://www.bilibili.com/video/ent-variety-1.html"><img src="img/右箭头.png"><span>综艺<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/ent-circle-1.html"><img src="img/右箭头.png"><span>明星<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://www.bilibili.com/video/ent-korea-1.html"><img src="img/右箭头.png"><span>korea相关<img class="after" src="img/左箭头.png"></span></a></li>
+						    	</ul>
+						    </div>
+						</li>
+						<li class="m33">
+							<a href="https://bangumi.bilibili.com/33/"><span class="s1">999</span><span style="color: black;">影视</span></a>
+						    <div>
+						    	<ul class="m4">
+						    		<li><a href="https://bangumi.bilibili.com/movie/"><img src="img/右箭头.png"><span>电影<img class="after" src="img/左箭头.png"></span></a></li>
+						    		<li><a href="https://bangumi.bilibili.com/tv/"><img src="img/右箭头.png"><span>电视剧<img class="after" src="img/左箭头.png"></span></a></li>
+						    	</ul>
+						    </div>
+						</li>
+					</ul>
+					
+					<div class="gc">
+						<a href="https://www.bilibili.com/square" style="color: black;"><img src="img/广场.png" style="display: block;float: left;margin-top: 15px;">广场</a>
+						<div class="gc-con">
+							<div class="gc-con_1" style="float: left;margin-bottom: 15px;">
+								<ul>
+									<li><img src="img/活动中心.png"><span>活动中心</span></li>
+									<li><img src="img/游戏.png"><span>游戏中心</span></li>
+									<li><img src="img/新闻中心.png" ><span>新闻中心</span></li>
+									<li><img src="img/绘画.png" ><span>画友</span></li>
+									<li><img src="img/icon_芒果tv.png"><span>芒果TV</span></li>
+								</ul>
+							</div>
+							<div class="gc-con_2">
+								<a href="https://www.bilibili.com/event" target="_blank"><img src="img/bilibili活动.jpg"></a>
+								<a href="https://www.bilibili.com/topic/integrated-1.html" target="_blank"><img src="img/bilibili话题.jpg"></a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="gc zb">
+						<a href="https://live.bilibili.com/" style="color: black;"><img src="img/直播.png" style="display: block;float: left;margin-top: 15px;">直播</a>
+						<div class="gc-con">
+							<div class="gc-con_1" style="float: left;margin-bottom: 15px;">
+								<ul class="m4">
+									<li><img src="img/右箭头.png"><span>推荐主播<img class="after" src="img/左箭头.png"></span></li>
+									<li><img src="img/右箭头.png"><span>生活娱乐<img class="after" src="img/左箭头.png"></span></li>
+									<li><img src="img/右箭头.png"><span>绘画专区<img class="after" src="img/左箭头.png"></span></li>
+									<li><img src="img/右箭头.png"><span>绘画专区<img class="after" src="img/左箭头.png"></span></li>
+									<li><img src="img/右箭头.png"><span>唱见舞见<img class="after" src="img/左箭头.png"></span></li>
+									<li><img src="img/右箭头.png"><span>单机联机<img class="after" src="img/左箭头.png"></span></li>
+									<li><img src="img/右箭头.png"><span>网络游戏<img class="after" src="img/左箭头.png"></span></li>
+									<li><img src="img/右箭头.png"><span>电子竞技<img class="after" src="img/左箭头.png"></span></li>
+									<li><img src="img/右箭头.png"><span>手游直播<img class="after" src="img/左箭头.png"></span></li>
+								</ul>
+							</div>
+							<div class="gc-con_2">
+								<a href="https://h.bilibili.com/ywh/" target="_blank"><img src="img/相簿.png" alt="有文画"></a>
+								<a href="https://vc.bilibili.com/" target="_blank"><img src="img/小视频.png" alt="小视频"></a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="gc br">
+						<a href="https://www.bilibili.com/blackroom/#/"><img src="img/禁言.png" style="display: block;float: left;margin-top: 15px;">小黑屋</a>
+					</div>
+
+				</div>
+				
+				<div class="con_2" style="float: left;">
+					<div class="slide">
+						<div class="s-c">
+							<img src="img/素材1.webp" />
+							<img src="img/素材2.webp" />
+							<img src="img/素材3.webp" />
+							<img src="img/素材4.webp" />
+							<img src="img/素材5.webp" />
+						</div>
+						<ul>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</ul>
+					</div>
+					
+					<div class="right">
+						<a href="https://www.bilibili.com/video/av12874571/">
+							<img src="img/CL.webp">
+							<div class="rc">
+								<p class="title">【深度解析】CLANNAD十周年人物手记Vol.5——坂上智代</p>
+								<p class="auther">up主：赫_萝</p>
+								<p class="pl">播放：5.1万</p>
+							</div>
+						</a>
+						<a href="https://www.bilibili.com/video/av12901699/">
+							<img src="img/渚.webp">
+							<div class="rc">
+								<p class="title">【CLANNAD/十周年纪念/AMV】 爱与泪的旅途——追寻着光之奇迹</p>
+								<p class="auther">up主：小小☆精灵</p>
+								<p class="pl">播放：3.6万</p>
+							</div>
+						</a>
+						<a href="https://www.bilibili.com/video/av12885269/">
+							<img src="img/hh.webp">
+							<div class="rc">
+								<p class="title">【心华】抄袭Paranoia2.0【原创曲PV付】【Sodatune】</p>
+								<p class="auther">up主：純白</p>
+								<p class="pl">播放：6.5万</p>
+							</div>
+						</a><br>
+						<a href="https://www.bilibili.com/video/av12880046/">
+							<img src="img/h2.webp"> 
+							<div class="rc">
+								<p class="title">【初音ミク】当你睡不着觉的时候，戳进来你会发现…</p>
+								<p class="auther">up主：花儿不哭</p>
+								<p class="pl">播放：2.5万</p>
+							</div>
+						</a>
+						<a href="https://www.bilibili.com/video/av12840329/">
+							<img src="img/诚哥.webp">
+							<div class="rc">
+								<p class="title">【凉风看番】日日日日日日日日日日在校园</p>
+								<p class="auther">up主：凉风有性胖次君</p>
+								<p class="pl">播放：56.1万</p>
+							</div>
+						</a>
+						<a href="https://www.bilibili.com/video/av12894334/">
+							<img src="img/同人.webp">
+							<div class="rc">
+								<p class="title">【凹凸世界MMD】〓黑色还是白色，以双剑来审判〓「Echo」【冷热流拟人/模型展示】</p>
+								<p class="auther">up主：黑娘KuLA_DM</p>
+								<p class="pl">播放：2.6万</p>
+							</div>
+						</a>
+					</div>
+				</div>
+			
+			    <div class="con_3" style="float: left;">
+			    	<div class="con_3_1" style="float: left;">
+			    		<div style="height: 45px;width: 720px;">
+			    			<span style="font-size: 22px;">推广</span>
+			    			<span style="font-size: 15px;color: rgba(0,0,0,0.4);padding-left: 50px;">一起来为真爱应援打call</span>
+			    		</div>
+			    		<div class="right" style="width: 720px;">
+			    			<a href="https://www.bilibili.com/video/av11498779/">
+			    				<img src="img/我的一个道姑朋友.webp" width="159px"/>
+			    				<div class="rc">
+			    					<p class="title"> 【双笙】我的一个道姑朋友</p>
+			    					<p class="auther">up主:双笙子</p>
+			    					<p class="pl">播放:157.2万</p>
+			    				</div>
+			    			</a>
+			    			<a href="https://www.bilibili.com/video/av2486387/">
+			    				<img src="img/紫妈.webp" width="159px">
+			    				<div class="rc">
+			    					<p class="title"> 【东方3D】人类与紫的弹幕游戏</p>
+			    					<p class="auther">up主:牛牛蝎羯</p>
+			    					<p class="pl">播放:44.1万</p>
+			    				</div>
+			    			</a>
+			    			<a href="https://www.bilibili.com/video/av917506/">
+			    				<img src="img/uuz.webp" width="159px">
+			    				<div class="rc">
+			    					<p class="title">【东方3D】灵梦与幽幽子的弹幕游戏</p>
+			    					<p class="auther">up主:牛牛蝎羯</p>
+			    					<p class="pl">播放:86.6万</p>
+			    				</div>
+			    			</a>
+			    			<a href="https://www.bilibili.com/video/av856822/">
+			    				<img src="img/Sakura.webp" width="159px">
+			    				<div class="rc">
+			    					<p class="title">【CLANNAD】谢谢 一直以来都最喜欢你~</p>
+			    					<p class="auther">up主:codheaven</p>
+			    					<p class="pl">播放:27.9万</p>
+			    				</div>
+			    			</a>
+			    		</div>
+			    	</div>
+			    	<div class="con_3_2" style="float: left;width: 236.19px;">
+			    		<div class="month">
+			    			<ul>
+			    				<li class="pre"><</li>
+			    				<li class="next">></li>
+			    				<li><span class="mon"></span><br><span class="year"></span></li>
+			    			</ul>
+			    		</div>
+			    		<ul class="week"></ul>
+			    		<ul class="day"></ul>
+			    	</div>
+			    </div>
+			
+			    <div class="con_4" id="d0" style="float: left;">
+			    	<div class="con_4_1" style="float: left;">
+			    		<div>
+			    			<span style="font-size: 22px;">正在直播</span>
+			    			<span style="font-size: 15px;color: rgba(0,0,0,0.4);padding-left: 50px;">当前共有7033个直播</span>
+			    		</div>
+			    		<div></div>
+			    	</div>
+			    	
+			    	<div class="con_4_2"></div>
+			    </div>
+			    
+			    <div class="con_5" id="d1" style="float: left;">
+			    	<div class="con_5_1" style="float: left;">
+			    		<div>
+			    			<span style="font-size: 22px;">动画</span>
+			    			<span style="font-size: 15px;color: rgba(0,0,0,0.4);padding-left: 50px;">7月新番动画精彩作画集锦</span>
+			    		</div>
+			    		<div></div>
+			    	</div>
+			    	
+			    	<div class="con_5_2"></div>
+			    </div>
+			    
+			    <div class="con_6" id="d2" style="float: left;">
+			    	<div class="con_6_1" style="float: left;">
+			    		<div>
+			    			<span style="font-size: 22px;">番剧</span>
+			    			<span style="font-size: 15px;color: rgba(0,0,0,0.4);padding-left: 50px;">7月新番动画精彩作画集锦</span>
+			    		</div>
+			    		<div></div>
+			    	</div>
+			    	
+			    	<div class="con_6_2"></div>
+			    </div>
+			    
+			    <div class="con_7" id="d3" style="float: left;">
+			    	<div class="con_7_1" style="float: left;">
+			    		<div>
+			    			<span style="font-size: 22px;">国创</span>
+			    			<span style="font-size: 15px;color: rgba(0,0,0,0.4);padding-left: 50px;">7月新番动画精彩作画集锦</span>
+			    		</div>
+			    		<div></div>
+			    	</div>
+			    	
+			    	<div class="con_7_2"></div>
+			    </div>
+			</div>
+		</div>
+		
+		<div class="index">
+			<ul>
+				<li><a href="#d0">直播</a></li>
+				<li><a href="#d1">动画</a></li>
+				<li><a href="#d2">番剧</a></li>
+				<li><a href="#d3">国创</a></li>
+				<li>音乐</li>
+				<li>舞蹈</li>
+				<li>游戏</li>
+				<li>广告</li>
+				<li>电影</li>
+				<li>生活</li>
+				<li>科技</li>
+				<li>娱乐</li>
+				<li>时尚</li>
+				<li>TV剧</li>
+				<li>鬼畜</li>
+			</ul>
+		</div>
+		<script>
+			function fun(n){
+				$(".m4 li")[n].onmouseover = function(){
+					$(".m4 li .after")[n].style.cssText = "right: -15px;opacity: 1;"
+				};
+				
+				$(".m4 li")[n].onmouseout = function(){
+					$(".m4 li .after")[n].style.cssText = "right: -30px;opacity: 0;"
+				}
+			}
+			
+			function bt(){
+				for(var i=0;i<$(".m4 li").length;i++){
+					fun(i);
+				}
+			}
+			
+			function con(n){
+				$(".m33")[n].onmouseenter = function(){
+					$(".m33 div")[n].style.cssText = "display: block;";
+				};
+				
+				$(".m33")[n].onmouseleave = function(){
+					$(".m33 div")[n].style.cssText = "display: none;";
+				}
+			}
+			
+			function ct(){
+				for(var j=0;j<14;j++)
+				con(j);
+			}
+			
+			var m=0;
+			var n=0;
+			var wid = document.getElementsByClassName("s-c")[0];
+			//控制器
+			function control(i){
+				m = m - 440*i;
+				if(m<=-2200)
+				m=0;
+				wid.style.left = m + "px";
+				
+				n = n + i;
+				if(n>=5)
+				n=0;
+				for(j=0;j<$(".slide li").length;j++)
+				$(".slide li")[j].style.cssText = "background: white;width: 11px;height: 11px;border: 0;"
+				$(".slide li")[n].style.cssText = "background: #836fff;width: 14px;height: 14px;border: 2px solid white;"
+			}
+			
+			function slide(){
+				t = setInterval("control(1)",2000);
+			}
+			//鼠标划过li标签
+			function fu(x){
+				$(".slide li")[x].onmouseover = function(){
+						control(x);
+						m=0;
+						n=0;
+					}
+			}
+			
+			function po(){
+				for(var x=0;x<5;x++){
+					fu(x);
+				}
+			}
+			
+			function systemTime(){
+				var time = new Date();
+				var x = time.getMonth();  //x代表本月
+				var year = time.getFullYear();
+				var dd3 = time.getDate();
+				
+				var month = new Array(12);
+				month[0] = "January";
+				month[1] = "February";
+				month[2] = "March";
+				month[3] = "April";
+				month[4] = "May";
+				month[5] = "June";
+				month[6] = "July";
+				month[7] = "August";
+				month[8] = "September";
+				month[9] = "October";
+				month[10] = "November";
+				month[11] = "December";
+				
+				var weekd = new Array(7);
+				weekd[0] = "Su";
+				weekd[1] = "Mo";
+				weekd[2] = "Tu";
+				weekd[3] = "We";
+				weekd[4] = "Th";
+				weekd[5] = "Fr";
+				weekd[6] = "Sa";
+				
+				var week = document.getElementsByClassName("week")[0];
+				for(var n=0;n<7;n++)
+				week.innerHTML = week.innerHTML + "<li>" + weekd[n] + "</li>";
+				
+				var mon = document.getElementsByClassName("mon")[0];
+				var ye = document.getElementsByClassName("year")[0];
+				mon.innerHTML = month[x];
+				ye.innerHTML = year;
+				
+				var dd1 = new Date(year,x+1,0); //下个月的第0天即本月的最后一天
+				var daynum = dd1.getDate();   //获得天数
+				
+				var dd2 = new Date(year,x,1);
+				var day = dd2.getDay();  //第一天是周几
+				
+				var d = document.getElementsByClassName("day")[0];
+				for(var j=0;j<day;j++)
+				d.innerHTML = d.innerHTML + "<li>" + "" + "</li>";
+				for(var i=1;i<daynum+1;i++)
+				d.innerHTML = d.innerHTML + "<li>" + i + "</li>";
+				
+				$(".day li")[dd3-1+day].style.cssText = "background:#1abc9c; padding:5px;"
+			}
+			
+			function uu(i){
+				var x = '#d' + i;
+				var x_height = $(x).offset().top;
+				var y_height = x_height + $(x).outerHeight(true);
+				$(window).scroll(function(){
+					var t_srcoll = $(this).scrollTop();
+					//console.log(t_srcoll);
+					if(x_height<=t_srcoll&&y_height>=t_srcoll){
+						for(var l=0;l<4;l++){
+						   $(".index li")[l].style.cssText = "background: #F2F2F2;"
+						   $(".index li a")[l].style.cssText = "color: black;";
+						}
+					   $(".index li")[i].style.cssText = "background: #7ec0ee;";
+					   $(".index li a")[i].style.cssText = "color: white;";
+					}
+					if(t_srcoll<725||t_srcoll>1685){
+						for(var l=0;l<4;l++){
+						   $(".index li")[l].style.cssText = "background: #F2F2F2;"
+						   $(".index li a")[l].style.cssText = "color: black;";
+						}
+					}
+				})
+			}
+			
+			
+			$(document).ready(function(){
+				bt();
+				ct();
+				slide();
+				po();
+				$(".slide").mouseover(function(){
+					clearInterval(t);
+				});
+				$(".slide").mouseout(function(){
+					slide();
+				});
+				
+				$(".m2 .img1").mouseenter(function(){
+					setTimeout(function(){
+						$(".m2 .img1").children().css({"width":"65px","top":"10px","left":"-50px","border":"2px solid white","padding":"0"});
+					},1000);
+				});
+				$(".m2 .img1").mouseleave(function(){
+					setTimeout(function(){
+						$(".m2 .img1").children().css({"width":"42px","top":"0","left":"-32px","border":"0","padding":"3px"});
+					},1000)
+				})
+				
+				systemTime();
+				
+				$(function(){
+					var con_2_height = $(".con_2").offset().top;
+					$(window).scroll(function(){
+						var this_scroll = $(this).scrollTop();
+						if(this_scroll>con_2_height){
+							//$(".index")[0].style.cssText = "top:0";
+							$(".index").css("top","0");
+						}
+						else
+						//$(".index")[0].style.cssText = "top:239px";
+						$(".index").css("top","239px");
+					})
+				});
+				
+				$(function(){
+					for(var i=0;i<4;i++){
+						uu(i);
+					}
+				});
+				
+				$(function(){
+					for(var i=0;i<$(".index li").length;i++){
+						$(".index li")[i].onmouseover = function(){
+							$(this).css("background","#7ec0ee");
+							$(this).children().css("color","white");
+						};
+						$(".index li")[i].onmouseout = function(){
+							$(this).css("background","#F2F2F2");
+							$(this).children().css("color","black");
+						}
+					}
+				})
+          })
+		</script>
+	</body>
+</html>
